@@ -1,7 +1,7 @@
 {
 	"name": "copytabletask",
 	"properties": {
-		"description": "azure to azur sql",
+		"description": "azure to azur sql \nthis got saved to github",
 		"activities": [
 			{
 				"name": "ForEach_jsh",
