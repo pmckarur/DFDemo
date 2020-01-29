@@ -1,0 +1,12 @@
+{
+	"name": "AzureKeyVaultLinkedService",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"description": "This is a linked service to access Azure Key Vault",
+		"annotations": [],
+		"type": "AzureKeyVault",
+		"typeProperties": {
+			"baseUrl": "https://BoeingPOCKeyVault.vault.azure.net/"
+		}
+	}
+}

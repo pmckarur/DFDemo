@@ -1,0 +1,285 @@
+{
+	"name": "copytabletask",
+	"properties": {
+		"description": "azure to azur sql",
+		"activities": [
+			{
+				"name": "ForEach_jsh",
+				"type": "ForEach",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@pipeline().parameters.cw_items",
+						"type": "Expression"
+					},
+					"activities": [
+						{
+							"name": "Copy_Table_SQL_TO_SQL",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [
+								{
+									"name": "Source",
+									"value": "dbo.@{item().source.table}"
+								},
+								{
+									"name": "Destination",
+									"value": "dbo.@{item().destination.table}"
+								}
+							],
+							"typeProperties": {
+								"source": {
+									"type": "AzureSqlSource"
+								},
+								"sink": {
+									"type": "AzureSqlSink"
+								},
+								"enableStaging": false,
+								"enableSkipIncompatibleRow": true,
+								"translator": {
+									"value": "@item().copyActivity.translator",
+									"type": "Expression"
+								}
+							},
+							"inputs": [
+								{
+									"referenceName": "SourceDataset_jsh",
+									"type": "DatasetReference",
+									"parameters": {
+										"cw_table": "@item().source.table"
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "DestinationDataset_jsh",
+									"type": "DatasetReference",
+									"parameters": {
+										"cw_table": "@item().destination.table"
+									}
+								}
+							]
+						}
+					]
+				}
+			}
+		],
+		"parameters": {
+			"cw_items": {
+				"type": "Array",
+				"defaultValue": [
+					{
+						"source": {
+							"table": "AuditTB"
+						},
+						"destination": {
+							"table": "AuditTB"
+						},
+						"copyActivity": {
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "AuditID",
+											"type": "Int32"
+										},
+										"sink": {
+											"name": "AuditID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "LoginStatus",
+											"type": "String"
+										},
+										"sink": {
+											"name": "LoginStatus",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "ControllerName",
+											"type": "String"
+										},
+										"sink": {
+											"name": "ControllerName",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "ActionName",
+											"type": "String"
+										},
+										"sink": {
+											"name": "ActionName",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "UrlReferrer",
+											"type": "String"
+										},
+										"sink": {
+											"name": "UrlReferrer",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "UserID",
+											"type": "String"
+										},
+										"sink": {
+											"name": "UserID",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "SessionID",
+											"type": "String"
+										},
+										"sink": {
+											"name": "SessionID",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "IPAddress",
+											"type": "String"
+										},
+										"sink": {
+											"name": "IPAddress",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "PageAccessed",
+											"type": "String"
+										},
+										"sink": {
+											"name": "PageAccessed",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "LoggedInAt",
+											"type": "DateTime"
+										},
+										"sink": {
+											"name": "LoggedInAt",
+											"type": "DateTime"
+										}
+									},
+									{
+										"source": {
+											"name": "LoggedOutAt",
+											"type": "DateTime"
+										},
+										"sink": {
+											"name": "LoggedOutAt",
+											"type": "DateTime"
+										}
+									}
+								]
+							}
+						}
+					},
+					{
+						"source": {
+							"table": "DescriptionTB"
+						},
+						"destination": {
+							"table": "DescriptionTB"
+						},
+						"copyActivity": {
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "DescriptionID",
+											"type": "Int32"
+										},
+										"sink": {
+											"name": "DescriptionID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "Description",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Description",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "ProjectID",
+											"type": "Int32"
+										},
+										"sink": {
+											"name": "ProjectID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "TimeSheetMasterID",
+											"type": "Int32"
+										},
+										"sink": {
+											"name": "TimeSheetMasterID",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "CreatedOn",
+											"type": "DateTime"
+										},
+										"sink": {
+											"name": "CreatedOn",
+											"type": "DateTime"
+										}
+									},
+									{
+										"source": {
+											"name": "UserID",
+											"type": "Int32"
+										},
+										"sink": {
+											"name": "UserID",
+											"type": "Int32"
+										}
+									}
+								]
+							}
+						}
+					}
+				]
+			}
+		},
+		"annotations": []
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

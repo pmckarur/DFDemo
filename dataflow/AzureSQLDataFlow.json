@@ -1,0 +1,32 @@
+{
+	"name": "AzureSQLDataFlow",
+	"properties": {
+		"description": "Azure SQL to Azure SQL",
+		"folder": {
+			"name": "AzureSQL2AzureSQL"
+		},
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "AzureSource",
+						"type": "DatasetReference"
+					},
+					"name": "SourceDB"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "AzureDestination",
+						"type": "DatasetReference"
+					},
+					"name": "Destination"
+				}
+			],
+			"transformations": [],
+			"script": "source(output(\n\t\tEmpID as string,\n\t\tFirstName as string,\n\t\tLastName as string,\n\t\tGernder as string,\n\t\tEmail as string,\n\t\tCity as string,\n\t\tState as string,\n\t\tZip as string\n\t),\n\tallowSchemaDrift: false,\n\tvalidateSchema: false,\n\tisolationLevel: 'NONE',\n\tformat: 'table') ~> SourceDB\nSourceDB sink(input(\n\t\tEmpID as string,\n\t\tFirstName as string,\n\t\tLastName as string,\n\t\tGernder as string,\n\t\tEmail as string,\n\t\tCity as string,\n\t\tState as string,\n\t\tZip as string\n\t),\n\tallowSchemaDrift: false,\n\tvalidateSchema: true,\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\tformat: 'table') ~> Destination"
+		}
+	}
+}
