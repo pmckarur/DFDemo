@@ -1,0 +1,16 @@
+{
+	"name": "SourceDataset_9jx",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "JDIFF database",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "OracleTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "JDIF_80",
+			"table": "ATS"
+		}
+	}
+}
